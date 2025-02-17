@@ -1,0 +1,275 @@
+# sway config file by Christian Goeschel Ndjomouo
+#
+# Leader key
+set $mod Mod4
+
+# Set default variables
+set $term               kitty
+# set $browser            firefox --new-instance --name=firefox --profile=cjg2wf2c.default
+set $browser            zen-browser --name=zen-browser
+set $app_launcher       ${HOME}/.config/rofi/launchers/type-4/launcher.sh
+set $swaynag            swaynag -t tokyo-night
+set $screenshot_cmd     grimshot --notify save area
+set $music_app          kitty --class=music ncspot
+set $special_app        firefox --new-instance --name=todo --profile=xwupc8ad.default-release https://www.notion.so/14869444bcaa80c6ad44f9bb7d9a1084?v=14869444bcaa81ac8102000c01ed4b0b
+#set $music_visualizer
+
+# STYLING:
+#
+font pango:JetBrainsMonoNL Nerd Font 13
+# Gaps
+gaps inner 0
+gaps outer 5
+smart_gaps on
+# Window decoration
+# class                 border  backgr. text    indicator child_border
+client.focused          #7aa2f7 #414868 #c0caf5 #7dcfff   #7aa2f7
+client.focused_inactive #7aa2f7 #414868 #c0caf5 #7dcfff   #7aa2f7
+client.unfocused        #414868 #24283b #a9b1d6 #7dcfff   #414868
+client.urgent           #e0af68 #e0af68 #1d202f #7dcfff   #e0af68
+
+# Removing titles
+for_window [app_id=".*"] border pixel 1
+
+# ALWAYS EXEC:
+#
+# Waybar
+bar {
+    swaybar_command "/usr/bin/waybar"
+}
+
+# Play login sound
+# exec paplay /usr/share/sounds/ocean/stereo/theme-demo.oga
+
+# Wallpaper
+exec_always swaybg --image ${HOME}/Pictures/wallpapers/tokyo-night.png
+
+# Mako for notifications
+exec_always mako --config ${HOME}/.config/mako/config
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec dex-autostart --autostart --environment sway
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec nm-applet
+
+# Position output displays
+exec_always pos-home-mon
+
+# FUNCTION KEYS
+#
+# Use pactl to adjust volume in PulseAudio.
+bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@ +1% && paplay --process-time-msec=10 /usr/share/sounds/ocean/stereo/audio-volume-change.oga
+bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@ -1% && paplay --process-time-msec=10 /usr/share/sounds/ocean/stereo/audio-volume-change.oga
+bindsym XF86AudioMute           exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute        exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Use playbackctl to control media playback
+bindsym XF86AudioPlay           exec playerctl play-pause
+bindsym XF86AudioNext           exec playerctl next
+bindsym XF86AudioPrev           exec playerctl previous
+
+# Use brightnessctl to adjust backlight
+bindsym XF86MonBrightnessUp     exec brightnessctl -c backlight s +5%
+bindsym XF86MonBrightnessDown   exec brightnessctl -c backlight s 5%-
+
+# App Launcher
+bindsym XF86Search              exec $app_launcher
+
+# Launch special app
+bindsym XF86LaunchA             exec $special_app
+
+# TRACKPAD:
+#
+input type:touchpad {
+    natural_scroll enabled
+}
+# Switch workspaces on swipe
+bindgesture swipe:right workspace prev
+bindgesture swipe:left  workspace next
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# PER-CLASS/APP-ID ATTRIBUTES:
+#
+for_window [app_id="floating_term"]     floating enable, resize set 960 540, move position center
+for_window [app_id="music"]             resize set 650 900, move position center
+for_window [app_id="music_visualizer"]  resize set 400 300, move position left
+
+# GENERIC KEYBINDINGS:
+#
+# start a generic term
+bindsym $mod+t exec $term
+# start a dev terminal
+bindsym $mod+Return exec $term --class=dev_term nvim
+# start a floating terminal
+bindsym $mod+Shift+Return exec kitty --class=floating_term
+
+# start firefox
+bindsym $mod+Shift+f exec $browser
+# open Chatgpt
+bindsym $mod+Shift+g exec $browser https://chatgpt.com
+
+# kill focused window
+bindsym $mod+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec $app_launcher
+
+# Open the music app
+bindsym $mod+Shift+m exec $music_app
+
+# Lock keybinding
+bindsym $mod+l exec /usr/bin/swaylock
+
+# Take a screenshot
+bindsym $mod+Shift+p exec $screenshot_cmd
+
+# change focus
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left       focus left
+bindsym $mod+Down       focus down
+bindsym $mod+Up         focus up
+bindsym $mod+Right      focus right
+
+# move focused window
+bindsym $mod+Shift+j            move left
+bindsym $mod+Shift+k            move down
+bindsym $mod+Shift+l            move up
+bindsym $mod+Shift+semicolon    move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left         move left
+bindsym $mod+Shift+Down         move down
+bindsym $mod+Shift+Up           move up
+bindsym $mod+Shift+Right        move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# WORKSPACES:
+#
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Pin apps to workspaces
+# assign [app_id="firefox"]       2
+assign [app_id="zen-browser"]   2
+assign [app_id="dev_term"]      3
+assign [app_id="todo"]          5
+assign [app_id="music"]         7
+
+# Workspace properties
+for_window [workspace=7] floating enable
+for_window [workspace=4] layout stacking
+
+# Follow newly opened windows
+for_window [app_id=.*] focus
+
+# SWAY KEYBINDINGS:
+#
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec ~/.config/rofi/powermenu/type-6/powermenu.sh
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 1 px or 1 ppt
+        bindsym k resize grow height 1 px or 1 ppt
+        bindsym l resize shrink height 1 px or 1 ppt
+        bindsym semicolon resize grow width 1 px or 1 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 1 px or 1 ppt
+        bindsym Down resize grow height 1 px or 1 ppt
+        bindsym Up resize shrink height 1 px or 1 ppt
+        bindsym Right resize grow width 1 px or 1 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# move focused workspace between monitors
+bindsym $mod+Ctrl+greater       move workspace to output right
+bindsym $mod+Ctrl+less          move workspace to output left
+
+
+

@@ -111,8 +111,8 @@ source /usr/share/fzf/key-bindings.zsh
 #
 # Shell integrations
 eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)" # change the default cd to an alias for zoxide
-eval $(thefuck --alias)
+# eval "$(zoxide init --cmd cd zsh)" # change the default cd to an alias for zoxide
+# eval $(thefuck --alias)
 #
 alias vim='nvim'
 # git aliasses
@@ -126,5 +126,4 @@ alias gdatelong='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%
 alias tmux-sessionizer='~/.local/scripts/tmux-sessionizer.sh'
 # cheat sheet
 alias cht="~/.local/bin/cht.sh"
-
-. "/home/voren/.deno/env"
+. "/home/vencronys/.deno/env"
