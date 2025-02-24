@@ -4,15 +4,17 @@
 set $mod Mod4
 
 # Set default variables
-set $term               kitty
+set $term               ghostty
 # set $browser            firefox --new-instance --name=firefox --profile=cjg2wf2c.default
 set $browser            zen-browser --name=zen-browser
 set $app_launcher       ${HOME}/.config/rofi/launchers/type-4/launcher.sh
 set $swaynag            swaynag -t tokyo-night
-set $screenshot_cmd     grimshot --notify save area
-set $music_app          kitty --class=music ncspot
-set $special_app        firefox --new-instance --name=todo --profile=xwupc8ad.default-release https://www.notion.so/14869444bcaa80c6ad44f9bb7d9a1084?v=14869444bcaa81ac8102000c01ed4b0b
-#set $music_visualizer
+set $screenshot_cmd grimshot --notify save screen ~/Pictures/Screenshots/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png
+set $screenshot_area_cmd grimshot --notify save area ~/Pictures/Screenshots/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png
+# set $screenshot_cmd     grimshot --notify save area
+# set $music_app          kitty --class=music ncspot
+set $music_app          spotify-launcher
+set $music_visualizer spotify-launcher --class=music_visualizer cava
 
 # STYLING:
 #
@@ -42,7 +44,8 @@ bar {
 # exec paplay /usr/share/sounds/ocean/stereo/theme-demo.oga
 
 # Wallpaper
-exec_always swaybg --image ${HOME}/Pictures/wallpapers/tokyo-night.png
+# exec_always swaybg --image ${HOME}/Pictures/wallpapers/tokyo-night.png
+exec_always swaybg --image ${HOME}/Pictures/wallpapers/stars.jpg
 
 # Mako for notifications
 exec_always mako --config ${HOME}/.config/mako/config
@@ -61,8 +64,8 @@ exec_always pos-home-mon
 # FUNCTION KEYS
 #
 # Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@ +1% && paplay --process-time-msec=10 /usr/share/sounds/ocean/stereo/audio-volume-change.oga
-bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@ -1% && paplay --process-time-msec=10 /usr/share/sounds/ocean/stereo/audio-volume-change.oga
+bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@ +5% && paplay --process-time-msec=10 /usr/share/sounds/ocean/stereo/audio-volume-change.oga
+bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@ -5% && paplay --process-time-msec=10 /usr/share/sounds/ocean/stereo/audio-volume-change.oga
 bindsym XF86AudioMute           exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute        exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
@@ -81,6 +84,10 @@ bindsym XF86Search              exec $app_launcher
 # Launch special app
 bindsym XF86LaunchA             exec $special_app
 
+input type:pointer {
+    accel_profile flat
+}
+
 # TRACKPAD:
 #
 input type:touchpad {
@@ -96,17 +103,17 @@ floating_modifier $mod
 # PER-CLASS/APP-ID ATTRIBUTES:
 #
 for_window [app_id="floating_term"]     floating enable, resize set 960 540, move position center
-for_window [app_id="music"]             resize set 650 900, move position center
-for_window [app_id="music_visualizer"]  resize set 400 300, move position left
+# for_window [app_id="music"]           resize set 650 900, move position center
+for_window [class="Spotify"]            floating enable, resize set 1400 900, move position center
 
 # GENERIC KEYBINDINGS:
 #
 # start a generic term
-bindsym $mod+t exec $term
+bindsym $mod+Return exec $term
 # start a dev terminal
-bindsym $mod+Return exec $term --class=dev_term nvim
+# bindsym $mod+Return exec $term --class=dev_term nvim
 # start a floating terminal
-bindsym $mod+Shift+Return exec kitty --class=floating_term
+bindsym $mod+Shift+Return exec ghostty --class=floating_term
 
 # start firefox
 bindsym $mod+Shift+f exec $browser
@@ -123,16 +130,17 @@ bindsym $mod+d exec $app_launcher
 bindsym $mod+Shift+m exec $music_app
 
 # Lock keybinding
-bindsym $mod+l exec /usr/bin/swaylock
+bindsym $mod+ctrl+l exec /usr/bin/swaylock
 
 # Take a screenshot
-bindsym $mod+Shift+p exec $screenshot_cmd
+bindsym $mod+Shift+p exec $screenshot_area_cmd
+bindsym Print exec $screenshot_cmd
 
 # change focus
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left       focus left
@@ -141,10 +149,10 @@ bindsym $mod+Up         focus up
 bindsym $mod+Right      focus right
 
 # move focused window
-bindsym $mod+Shift+j            move left
-bindsym $mod+Shift+k            move down
-bindsym $mod+Shift+l            move up
-bindsym $mod+Shift+semicolon    move right
+bindsym $mod+Shift+h            move left
+bindsym $mod+Shift+j            move down
+bindsym $mod+Shift+k            move up
+bindsym $mod+Shift+l            move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left         move left
@@ -153,10 +161,10 @@ bindsym $mod+Shift+Up           move up
 bindsym $mod+Shift+Right        move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+# bindsym $mod+h split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+# bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -221,7 +229,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # assign [app_id="firefox"]       2
 assign [app_id="zen-browser"]   2
 assign [app_id="dev_term"]      3
-assign [app_id="todo"]          5
+assign [class="[Ss]team"]         5
 assign [app_id="music"]         7
 
 # Workspace properties
@@ -248,10 +256,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 1 px or 1 ppt
-        bindsym k resize grow height 1 px or 1 ppt
-        bindsym l resize shrink height 1 px or 1 ppt
-        bindsym semicolon resize grow width 1 px or 1 ppt
+        bindsym h resize shrink width 1 px or 1 ppt
+        bindsym j resize grow height 1 px or 1 ppt
+        bindsym k resize shrink height 1 px or 1 ppt
+        bindsym l resize grow width 1 px or 1 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 1 px or 1 ppt
