@@ -1,0 +1,48 @@
+#
+# ~/.bashrc - Migrated from Zsh
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Set EDITOR
+export EDITOR='nvim'
+
+# Aliases
+alias vim='nvim'
+alias tmux-sessionizer='~/.local/scripts/tmux-sessionizer.sh'
+alias cht="~/.local/bin/cht.sh"
+
+# Git Aliases
+# Load Git aliases
+if [[ -f ~/.git_aliases.bash ]]; then
+    source ~/.git_aliases.bash
+fi
+alias gls='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
+alias gll='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat'
+alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
+alias gdate='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative'
+alias gdatelong='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short'
+
+# Keybindings (Ctrl+F runs the script)
+bind '"\C-f":"~/.local/scripts/tmux-sessionizer.sh\n"'
+
+# Terminal Settings
+export TERMINAL=ghostty
+export GTK_THEME=Adwaita:dark
+
+# PATH
+export PATH=$PATH:$HOME/.local/bin
+
+# Load fzf (if installed)
+if [[ -f /usr/share/fzf/completion.bash ]]; then
+    source /usr/share/fzf/completion.bash
+    source /usr/share/fzf/key-bindings.bash
+fi
+
+# Load Deno environment
+. "/home/vencronys/.deno/env"
+
+# Prompt (equivalent to Zsh's default prompt)
+PS1='[\u@\h \W]\$ '
+
