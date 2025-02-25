@@ -43,9 +43,11 @@ window-padding-x = 0
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-window-decoration = none
-theme = rose-pine
+# window-decoration = none
+# theme = rose-pine
+# theme = nord
 background-opacity = 0.7
 background-blur = true
 cursor-style = block
 shell-integration-features = no-cursor
+

@@ -1,5 +1,13 @@
 export EDITOR='nvim'
 
 bindkey -s '^f' '~/.local/scripts/tmux-sessionizer.sh\n'
+# export GTK_THEME=Adwaita:dark
+# export ADW_THEME=dark
+export TERMINAL=ghostty
+# export QT_STYLE_OVERRIDE=kvantum
+# export QT_QPA_PLATFORMTHEME=qt5ct
+# export QT6CT_PLATFORMTHEME=qt6ct
+
 
 export PATH=$PATH:$HOME/.local/bin
+
