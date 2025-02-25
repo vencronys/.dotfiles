@@ -329,14 +329,14 @@ up() {
 }
 
 # Automatically do an ls after each cd, z, or zoxide
-cd ()
-{
-  if [ -n "$1" ]; then
-    builtin cd "$@" && ls
-  else
-    builtin cd ~ && ls
-  fi
-}
+# cd ()
+# {
+#   if [ -n "$1" ]; then
+#     builtin cd "$@" && ls
+#   else
+#     builtin cd ~ && ls
+#   fi
+# }
 
 # Returns the last 2 fields of the working directory
 pwdtail() {
@@ -479,4 +479,4 @@ export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bi
 eval "$(fzf --bash)"
 
 # zoxide
-eval "$(zoxide init bash)"
+# eval "$(zoxide init bash)"
