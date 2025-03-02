@@ -45,9 +45,10 @@ window-padding-x = 0
 
 # window-decoration = none
 # theme = rose-pine
-# theme = nord
-background-opacity = 0.7
-background-blur = true
+theme = nord
+# theme = tokyonight_moon
+# background-opacity = 0.9
+# background-blur = true
 cursor-style = block
 shell-integration-features = no-cursor
 
