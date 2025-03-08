@@ -62,7 +62,16 @@ PS1="${NORD8}\u@\h ${NORD4}\w\$(parse_git_branch)${RESET}\n\$ "
 # Git branch (if any) (yellow)
 
 # Paths
-export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:/.local/share/flatpak/exports/bin"
+export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:/.local/share/flatpak/exports/bin:/usr/lib/jvm/java-23-openjdk/bin"
+export PATH=$PATH:"/opt/mssql-tools/bin"
+
+# Variable exports
+export TERMINAL=kitty
+
+# Bash completion
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+fi
 
 # fzf
 eval "$(fzf --bash)"
