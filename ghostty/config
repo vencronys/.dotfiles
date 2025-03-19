@@ -44,9 +44,8 @@ window-padding-x = 0
 # resize-overlay-duration = 4s 200ms
 
 # window-decoration = none
-# theme = rose-pine
-theme = nord
-# theme = tokyonight_moon
+theme = zenbones_dark
+background = #1A1D1F
 # background-opacity = 0.9
 # background-blur = true
 cursor-style = block
