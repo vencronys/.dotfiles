@@ -105,9 +105,6 @@ source $ZSH/oh-my-zsh.sh
 source ~/.zsh_profile
 source ~/.zsh_aliases
 
-# Shell integrations
-eval "$(fzf --zsh)"
-
 # fnm (Fast Node Manager)
 FNM_PATH="$HOME/.local/share/fnm"
 [ -d "$FNM_PATH" ] && export PATH="$FNM_PATH:$PATH" && eval "$(fnm env --shell=zsh)"
@@ -121,5 +118,9 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # Cargo (Rust)
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(starship init zsh)"
 
 # . "/home/vencronys/.deno/env"
