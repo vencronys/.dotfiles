@@ -20,7 +20,7 @@
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
 font-family = JetBrainsMono Nerd Font
-font-size = 14
+font-size = 12
 window-padding-x = 0
 #
 # # Spacing around the equals sign does not matter.
@@ -44,8 +44,10 @@ window-padding-x = 0
 # resize-overlay-duration = 4s 200ms
 
 # window-decoration = none
-theme = zenbones_dark
-background = #1A1D1F
+# theme = zenbones_dark
+theme = Afterglow
+# background = #1A1D1F
+background = #201F22
 # background-opacity = 0.9
 # background-blur = true
 cursor-style = block

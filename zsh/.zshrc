@@ -102,28 +102,24 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
 source ~/.zsh_profile
-#
-# fzf settings
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
-#
+source ~/.zsh_aliases
+
 # Shell integrations
 eval "$(fzf --zsh)"
-# eval "$(zoxide init --cmd cd zsh)" # change the default cd to an alias for zoxide
-# eval $(thefuck --alias)
-#
-alias vim='nvim'
-# git aliasses
-alias gls='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate'
-alias gll='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat'
-alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
-alias gdate='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative'
-alias gdatelong='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short'
-#
-# tmux-sessionizer
-alias tmux-sessionizer='~/.local/scripts/tmux-sessionizer.sh'
-# cheat sheet
-alias cht="~/.local/bin/cht.sh"
-. "/home/vencronys/.deno/env"
+
+# fnm (Fast Node Manager)
+FNM_PATH="$HOME/.local/share/fnm"
+[ -d "$FNM_PATH" ] && export PATH="$FNM_PATH:$PATH" && eval "$(fnm env --shell=zsh)"
+
+# Deno
+[ -f "$HOME/.deno/env" ] && source "$HOME/.deno/env"
+
+# SDKMAN (must be at the end for proper initialization)
+export SDKMAN_DIR="$HOME/.sdkman"
+[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+# Cargo (Rust)
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
+# . "/home/vencronys/.deno/env"
