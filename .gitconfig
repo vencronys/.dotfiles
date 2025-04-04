@@ -1,40 +1,64 @@
 [user]
-  name = Vencronys
-  email = 150689455+vencronys@users.noreply.github.com
+    name = Vencronys
+    email = vencronys@gmail.com
+    # signingkey = ~/.ssh/id_ed25519 # Use GPG if needed
 
 [init]
   defaultBranch = main
 
-[color]
-  ui = auto
+[core]
+    editor = nvim
+    autocrlf = input
+    # pager = delta # Uncomment if you use 'delta' for better diffs
+
+# [alias]
+#     co = checkout
+#     br = branch
+#     st = status -sb
+#     ci = commit
+#     cm = commit -m
+#     amend = commit --amend --no-edit
+#     last = log -1 --stat
+#     graph = log --oneline --decorate --graph --all
+#     unstage = reset HEAD --
+#     discard = checkout --
+#     fixup = commit --fixup
+#     squash = rebase -i --autosquash HEAD~3
+#     wip = commit -m "WIP"
+#     undo = reset --soft HEAD~
+#     recent = log --since="2 weeks ago" --author="$(git config user.name)" --oneline
+
+[push]
+    default = simple
+
+[fetch]
+    prune = true
 
 [pull]
-  rebase = false
-
-[core]
-  editor = nvim
-  pager = delta
-
-[interactive]
-  diffFilter = delta --color-only
-
-[delta]
-  navigate = true    # use n and N to move between diff sections
-  line-numbers = true
-  side-by-side = true
-
-    # delta detects terminal colors automatically; set one of these to disable auto-detection
-    # dark = true
-    # light = true
+    rebase = true
 
 [merge]
-  conflictstyle = diff3
+    ff = only
 
 [diff]
-  colorMoved = default
+    tool = nvimdiff
+    colorMoved = default
+    # Uncomment the next line to enable delta
+    # external = delta
 
-[filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-  required = true
+[difftool]
+    prompt = false
+
+[rerere]
+    enabled = true
+
+[color]
+    ui = auto
+
+[credential]
+    helper = cache
+
+[interactive]
+    # Uncomment the next line to enable delta for interactive diffs
+    # diffFilter = delta --color-only
+
