@@ -1,5 +1,8 @@
 export EDITOR='nvim'
-export BAT_THEME=base16
+# export BAT_THEME=Nord
+
+# Use Emacs-style keybindings
+bindkey -e
 
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
@@ -45,7 +48,31 @@ _fzf_comprun() {
   esac
 }
 
-bindkey -s ^f "tmux-sessionizer\n"
+source ~/.local/scripts/fzf-git.sh
+
+# Redefine this function to change the options
+_fzf_git_fzf() {
+  fzf --height 50% --tmux 90%,70% \
+    --layout reverse --multi --min-height 20+ --border \
+    --no-separator --header-border horizontal \
+    --border-label-pos 2 \
+    --color 'label:blue' \
+    --preview-window 'right,50%' --preview-border line \
+    --bind 'ctrl-/:change-preview-window(down,50%|hidden|)' "$@"
+}
+
+fgco() {
+  _fzf_git_each_ref --no-multi | xargs git checkout
+}
+
+gswt() {
+  cd "$(_fzf_git_worktrees --no-multi)"
+}
+
+# Use tmux-sessionizer to create a new tmux session
+# bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s '\ef' "tmux-sessionizer\n"
+
 
 # User-specific environment
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
